@@ -1,8 +1,9 @@
 package ba.unsa.etf.rpr;
 
 /**
- * Hello world!
- *
+ * Zadaca 1 rpr
+ * @author Amna Hodzic
+ * @version 1.0
  */
 public class App 
 {
