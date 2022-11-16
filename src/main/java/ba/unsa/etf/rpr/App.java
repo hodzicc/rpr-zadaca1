@@ -20,10 +20,10 @@ public class App
                     input += args[i];
                 }
                 System.out.println(input);
-                //String input =args[1];
                System.out.println("evaluate("+input+")= "+ ExpressionEvaluator.evaluate(input));
-            }catch (Exception e){
-                System.err.println("Nevalidan drugi argument, mora biti string");
+            }
+            catch (Exception e){
+                System.err.println("Nevalidan drugi argument");
             }
         }
     }
