@@ -6,103 +6,47 @@ import java.util.Stack;
 import static java.lang.Double.parseDouble;
 
 public class ExpressionEvaluator {
+    public static double evaluate(String expression){
 
-    public static double evaluate(String expression)
-    {
-        char[] tokens = expression.toCharArray();
+        Stack<String> ops  = new Stack<String>();
+        Stack<Double> vals = new Stack<Double>();
+        String[] s = expression.split(" ");
+        for(int i=0; i<s.length; i++) {
+            if      (s[i].equals("("))               ;
+            else if (s[i].equals("+"))    ops.push(s[i]);
+            else if (s[i].equals("-"))    ops.push(s[i]);
+            else if (s[i].equals("*"))    ops.push(s[i]);
+            else if (s[i].equals("/"))    ops.push(s[i]);
+            else if (s[i].equals("sqrt")) ops.push(s[i]);
+            else if (s[i].equals(")")) {
+                String op = ops.pop();
+                double v = vals.pop();
+                if      (op.equals("+"))    v = vals.pop() + v;
+                else if (op.equals("-"))    v = vals.pop() - v;
+                else if (op.equals("*"))    v = vals.pop() * v;
+                else if (op.equals("/"))   {
+                    if(v==0)
+                    {
+                        throw new
+                                RuntimeException(
+                                "Cannot divide by zero");
+                    }
+                    v = vals.pop() / v;
+                }
+                else if (op.equals("sqrt")) v = Math.sqrt(v);
+                vals.push(v);
 
-        Stack<Double> values = new
-                Stack<Double>();
-
-        Stack<Character> ops = new
-                Stack<Character>();
-
-        for (int i = 0; i < tokens.length; i++)
-        {
-            if (tokens[i] == ' ')
-                continue;
-
-
-            if (tokens[i] >= '0' &&
-                    tokens[i] <= '9')
-            {
-                StringBuffer sbuf = new
-                        StringBuffer();
-
-                while (i < tokens.length &&
-                        tokens[i] >= '0' &&
-                        tokens[i] <= '9')
-                    sbuf.append(tokens[i++]);
-                values.push(Double.parseDouble(sbuf.
-                        toString()));
-                i--;
             }
-
-            else if (tokens[i] == '(')
-                ops.push(tokens[i]);
-
-            else if (tokens[i] == ')')
-            {
-                while (ops.peek() != '(')
-                    values.push(applyOp(ops.pop(),
-                            values.pop(),
-                            values.pop()));
-                ops.pop();
+        else if(!s[i].equals("("))
+            try {
+                vals.push(parseDouble(s[i]));
+            }catch(NumberFormatException exception){
+                throw new RuntimeException("Izraz nije validan");
             }
-
-            else if (tokens[i] == '+' ||
-                    tokens[i] == '-' ||
-                    tokens[i] == '*' ||
-                    tokens[i] == '/')
-            {
-                while (!ops.empty() &&
-                        hasPrecedence(tokens[i],
-                                ops.peek()))
-                    values.push(applyOp(ops.pop(),
-                            values.pop(),
-                            values.pop()));
-
-                ops.push(tokens[i]);
-            }
-            else throw new RuntimeException("Nevalidan unos");
         }
-
-        while (!ops.empty())
-            values.push(applyOp(ops.pop(),
-                    values.pop(),
-                    values.pop()));
-
-        return values.pop();
+        if(ops.size() != 0) throw new RuntimeException("Izraz nije validan");
+       return vals.pop();
     }
 
-    public static boolean hasPrecedence(
-            char op1, char op2)
-    {
-        if (op2 == '(' || op2 == ')')
-            return false;
-        if ((op1 == '*' || op1 == '/') &&
-                (op2 == '+' || op2 == '-'))
-            return false;
-        else
-            return true;
-    }
 
-    public static double applyOp(char op,
-                              double b, double a) {
-        switch (op) {
-            case '+':
-                return a + b;
-            case '-':
-                return a - b;
-            case '*':
-                return a * b;
-            case '/':
-                if (b == 0)
-                    throw new
-                            RuntimeException(
-                            "Cannot divide by zero");
-                return a / b;
-        }
-        return 0;
-    }
 }

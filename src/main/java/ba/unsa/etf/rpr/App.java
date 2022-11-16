@@ -18,7 +18,9 @@ public class App
                 String funkcija = args[0];
                 String input = new String();
                 for(int i=1; i<args.length; i++) {
-                    input += args[i];
+                    if(i>=2)
+                    input = input +" "+ args[i];
+                    else input = args[i];
                 }
                 System.out.println(input);
                System.out.println("evaluate("+input+")= "+ ExpressionEvaluator.evaluate(input));

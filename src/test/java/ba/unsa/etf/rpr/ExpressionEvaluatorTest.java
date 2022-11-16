@@ -20,7 +20,7 @@ class ExpressionEvaluatorTest {
     @Test
     void evaluate_double(){
        ExpressionEvaluator exp = new ExpressionEvaluator();
-       assertEquals(4, Math.floor((exp.evaluate("( 2 * ( 5 / 3 ) + 1 )"))));
+       assertEquals(4, Math.floor((exp.evaluate("( ( 2 * ( 5 / 3 ) ) + 1 )"))));
 
     }
     @Test
@@ -44,7 +44,7 @@ class ExpressionEvaluatorTest {
     @Test
     void evaluate_mnozenje(){
        ExpressionEvaluator exp = new ExpressionEvaluator();
-       assertEquals(100.0, exp.evaluate("( ( 2 * 0 ) + ( 2 * 100 ) / 2 )"));
+       assertEquals(100.0, exp.evaluate("( ( 2 * 0 ) + ( ( 2 * 100 ) / 2 ) )"));
     }
 
 
