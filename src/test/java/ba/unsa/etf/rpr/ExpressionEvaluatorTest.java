@@ -31,7 +31,7 @@ class ExpressionEvaluatorTest {
        }
        catch(RuntimeException err)
        {
-           assertEquals("Cannot divide by zero", err.getMessage());
+           assertEquals("Dijeljenje s nulom nije dozvoljeno", err.getMessage());
        }
     }
 

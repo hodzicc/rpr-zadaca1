@@ -29,7 +29,7 @@ public class ExpressionEvaluator {
                     {
                         throw new
                                 RuntimeException(
-                                "Cannot divide by zero");
+                                "Dijeljenje s nulom nije dozvoljeno");
                     }
                     v = vals.pop() / v;
                 }
