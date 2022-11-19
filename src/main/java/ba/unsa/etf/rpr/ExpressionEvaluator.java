@@ -5,6 +5,9 @@ import java.util.Stack;
 
 import static java.lang.Double.parseDouble;
 
+/**
+ * Dijkstra's algorithm for expression evaluation
+ */
 public class ExpressionEvaluator {
     public static double evaluate(String expression){
 
@@ -37,11 +40,14 @@ public class ExpressionEvaluator {
                 vals.push(v);
 
             }
-        else if(!s[i].equals("("))
-            try {
-                vals.push(parseDouble(s[i]));
-            }catch(NumberFormatException exception){
+        else if(!s[i].equals("(")) {
+            if(i==0)
                 throw new RuntimeException("Izraz nije validan");
+                try {
+                    vals.push(parseDouble(s[i]));
+                } catch (NumberFormatException exception) {
+                    throw new RuntimeException("Izraz nije validan");
+                }
             }
         }
         if(ops.size() != 0) throw new RuntimeException("Izraz nije validan");

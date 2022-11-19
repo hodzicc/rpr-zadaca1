@@ -7,6 +7,11 @@ package ba.unsa.etf.rpr;
  */
 public class App 
 {
+    /**
+     * Main function
+     * checking if input is valid
+     * @param args
+     */
     public static void main( String[] args )
     {
         if (args.length < 2){
@@ -26,7 +31,7 @@ public class App
                System.out.println("evaluate("+input+")= "+ ExpressionEvaluator.evaluate(input));
             }
             catch (Exception e){
-                System.err.println("Nevalidan drugi argument");
+                System.err.println(e.getMessage());
             }
         }
     }
